@@ -69,11 +69,11 @@ body{background:#0a0e1a;font-family:system-ui,-apple-system,sans-serif;min-heigh
 .event-dot{width:5px;height:5px;border-radius:50%;display:inline-block;margin-right:2px}
 .dots-row{display:flex;flex-wrap:wrap;gap:2px;margin-top:2px}
 .ev-c1{background:#00c8ff}.ev-c2{background:#00e57a}.ev-c3{background:#ff8c00}.ev-c4{background:#ff6b8a}.ev-c5{background:#5b9eff}
-.event-mini{font-size:8px;color:#ffffff;background:rgba(0,200,255,.15);border-left:2px solid #00c8ff;padding:2px 4px;border-radius:2px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;line-height:1.3}
-.event-mini.c2{background:rgba(0,229,122,.12);border-left-color:#00e57a}
-.event-mini.c3{background:rgba(255,140,0,.12);border-left-color:#ff8c00}
-.event-mini.c4{background:rgba(255,107,138,.12);border-left-color:#ff6b8a}
-.event-mini.c5{background:rgba(91,158,255,.15);border-left-color:#5b9eff}
+.event-mini{font-size:8px;color:#ffffff;background:rgba(0,200,255,.15);border-left:2px solid #00c8ff;padding:3px 5px;border-radius:3px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;line-height:1.4;display:block}
+.event-mini.c2{background:rgba(0,200,255,.15);border-left-color:#00c8ff}
+.event-mini.c3{background:rgba(0,200,255,.15);border-left-color:#00c8ff}
+.event-mini.c4{background:rgba(0,200,255,.15);border-left-color:#00c8ff}
+.event-mini.c5{background:rgba(0,200,255,.15);border-left-color:#00c8ff}
 
 /* MODAL DIA */
 .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:200;display:none;align-items:flex-end;justify-content:center;backdrop-filter:blur(4px)}
@@ -123,11 +123,11 @@ body{background:#0a0e1a;font-family:system-ui,-apple-system,sans-serif;min-heigh
 .back-btn{display:flex;align-items:center;gap:6px;background:#0a0e1a;border:1px solid #1e2d45;color:#8a9bb0;font-size:12px;padding:8px 14px;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:600;margin-bottom:14px;width:100%;justify-content:center}
 
 /* LEMBRETES */
-.lembretes{background:#111827;border:1px solid #1e2d45;border-radius:12px;padding:16px;margin-bottom:20px}
-.lembretes-title{font-size:13px;font-weight:700;color:#ffffff;margin-bottom:12px}
-.lembretes-list{display:flex;flex-direction:column;gap:6px}
-.lembrete-item{font-size:12px;color:#ffffff;display:flex;align-items:center;gap:8px;padding:8px 10px;background:#0d1528;border-radius:8px;border:1px solid #1e2d45}
-.lembrete-check{color:#00c8ff;font-size:13px;flex-shrink:0}
+.lembretes{background:#111827;border:1px solid #1e2d45;border-radius:12px;padding:14px;margin-bottom:20px}
+.lembretes-title{font-size:13px;font-weight:700;color:#ffffff;margin-bottom:10px}
+.lembretes-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+.lembrete-item{font-size:11px;color:#ffffff;display:flex;align-items:center;gap:6px;padding:7px 8px;background:#0d1528;border-radius:8px;border:1px solid #1e2d45;line-height:1.3}
+.lembrete-check{color:#00c8ff;font-size:11px;flex-shrink:0}
 
 /* FOOTER */
 .footer{text-align:center;padding:20px 16px;border-top:1px solid #1e2d45}
@@ -201,16 +201,16 @@ body{background:#0a0e1a;font-family:system-ui,-apple-system,sans-serif;min-heigh
 
     <div class="lembretes">
       <div class="lembretes-title">📋 Lembretes da Equipe</div>
-      <div class="lembretes-list">
-        <div class="lembrete-item"><span class="lembrete-check">✓</span> Chegar 30 min antes</div>
-        <div class="lembrete-item"><span class="lembrete-check">✓</span> Fazer chamada com o Pastor</div>
-        <div class="lembrete-item"><span class="lembrete-check">✓</span> Letras dos louvores — Holyrics</div>
-        <div class="lembrete-item"><span class="lembrete-check">✓</span> Verificar se tem avisos</div>
-        <div class="lembrete-item"><span class="lembrete-check">✓</span> Tirar boas fotos</div>
-        <div class="lembrete-item"><span class="lembrete-check">✓</span> Versão da bíblia do pregador</div>
-        <div class="lembrete-item"><span class="lembrete-check">✓</span> Gravar os kids e voluntários</div>
-        <div class="lembrete-item"><span class="lembrete-check">✓</span> Limpar a sala</div>
-        <div class="lembrete-item"><span class="lembrete-check">✓</span> Fardamento: All Black</div>
+      <div class="lembretes-grid">
+        <div class="lembrete-item"><span class="lembrete-check">✓</span> 30 min antes</div>
+        <div class="lembrete-item"><span class="lembrete-check">✓</span> Chamada Pastor</div>
+        <div class="lembrete-item"><span class="lembrete-check">✓</span> Holyrics</div>
+        <div class="lembrete-item"><span class="lembrete-check">✓</span> Verificar avisos</div>
+        <div class="lembrete-item"><span class="lembrete-check">✓</span> Boas fotos</div>
+        <div class="lembrete-item"><span class="lembrete-check">✓</span> Bíblia pregador</div>
+        <div class="lembrete-item"><span class="lembrete-check">✓</span> Gravar kids</div>
+        <div class="lembrete-item"><span class="lembrete-check">✓</span> Limpar sala</div>
+        <div class="lembrete-item"><span class="lembrete-check">✓</span> All Black</div>
       </div>
     </div>
 
