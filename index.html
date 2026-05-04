@@ -57,15 +57,15 @@ body{background:#0a0e1a;font-family:system-ui,-apple-system,sans-serif;min-heigh
 .cal-title{font-size:16px;font-weight:700;color:#ffffff;margin-bottom:12px}
 .week-labels{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:4px}
 .week-lbl{text-align:center;font-size:8px;letter-spacing:1px;color:#8a9bb0;text-transform:uppercase;font-weight:700;padding:4px 0}
-.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:22px}
+.calendar{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:22px}
 
 /* DIA */
-.day{background:#111827;border:1px solid #1e2d45;border-radius:8px;min-height:52px;padding:6px;cursor:default;transition:all .15s;position:relative}
+.day{background:#111827;border:1px solid #1e2d45;border-radius:10px;min-height:60px;padding:10px;cursor:pointer;transition:all .15s;position:relative}
 .day.empty{background:#080b14;border-color:#0d1120;opacity:.3}
 .day.has-events{cursor:pointer;border-color:#1e2d45}
 .day.has-events:active{border-color:#00c8ff;background:#0d1528;transform:scale(.97)}
-.day-num{font-size:11px;font-weight:700;color:#ffffff;margin-bottom:4px;display:flex;align-items:center;justify-content:space-between}
-.day-num .dow{font-size:7px;color:#8a9bb0;letter-spacing:.5px;text-transform:uppercase}
+.day-num{font-size:13px;font-weight:700;color:#ffffff;margin-bottom:6px;display:flex;align-items:center;justify-content:space-between}
+.day-num .dow{font-size:9px;color:#8a9bb0;letter-spacing:.5px;text-transform:uppercase;font-weight:600}
 .event-dot{width:5px;height:5px;border-radius:50%;display:inline-block;margin-right:2px}
 .dots-row{display:flex;flex-wrap:wrap;gap:2px;margin-top:2px}
 .ev-c1{background:#00c8ff}.ev-c2{background:#00e57a}.ev-c3{background:#ff8c00}.ev-c4{background:#ff6b8a}.ev-c5{background:#5b9eff}
@@ -77,9 +77,10 @@ body{background:#0a0e1a;font-family:system-ui,-apple-system,sans-serif;min-heigh
 .event-mini.c5{background:rgba(168,85,247,.18);border-left-color:#c084fc}
 
 /* MODAL DIA */
-.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:200;display:none;align-items:flex-end;justify-content:center;backdrop-filter:blur(4px)}
-.modal-bg.open{display:flex}
-.modal{background:#111827;border:1px solid #1e2d45;border-radius:20px 20px 0 0;width:100%;max-width:500px;max-height:88vh;overflow-y:auto;box-shadow:0 -8px 40px rgba(0,0,0,.8)}
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0);z-index:200;display:none;align-items:flex-end;justify-content:center;backdrop-filter:blur(0px);transition:background .25s,backdrop-filter .25s}
+.modal-bg.open{display:flex;background:rgba(0,0,0,.85);backdrop-filter:blur(4px)}
+.modal{background:#111827;border:1px solid #1e2d45;border-radius:20px 20px 0 0;width:100%;max-width:500px;max-height:88vh;overflow-y:auto;box-shadow:0 -8px 40px rgba(0,0,0,.8);transform:translateY(100%);transition:transform .32s cubic-bezier(.32,1,.6,1)}
+.modal-bg.open .modal{transform:translateY(0)}
 .modal::-webkit-scrollbar{width:4px}
 .modal::-webkit-scrollbar-thumb{background:#1e2d45;border-radius:2px}
 .modal-handle{width:36px;height:4px;background:#2a3a55;border-radius:2px;margin:12px auto 0}
@@ -96,7 +97,8 @@ body{background:#0a0e1a;font-family:system-ui,-apple-system,sans-serif;min-heigh
 .team-list{display:flex;flex-direction:column;gap:8px}
 .team-member{display:flex;align-items:center;gap:10px;padding:10px 12px;background:#111827;border-radius:10px;border:1px solid #1e2d45;cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent}
 .team-member:active{border-color:#00c8ff;background:rgba(0,200,255,.06)}
-.member-av{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0}
+.member-av{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;flex-shrink:0;overflow:hidden;border:2px solid #1e2d45}
+.member-av img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 .member-name{font-size:14px;font-weight:600;color:#ffffff}
 .member-func{margin-top:2px}
 .func-badge{display:inline-flex;padding:2px 8px;border-radius:8px;font-size:10px;font-weight:700}
@@ -105,11 +107,13 @@ body{background:#0a0e1a;font-family:system-ui,-apple-system,sans-serif;min-heigh
 .ver-perfil{color:#8a9bb0;font-size:11px;margin-left:auto;white-space:nowrap}
 
 /* MODAL PERFIL */
-.profile-modal{background:#111827;border:1px solid #1e2d45;border-radius:20px 20px 0 0;width:100%;max-width:500px;max-height:88vh;overflow-y:auto;box-shadow:0 -8px 40px rgba(0,0,0,.8)}
+.profile-modal{background:#111827;border:1px solid #1e2d45;border-radius:20px 20px 0 0;width:100%;max-width:500px;max-height:88vh;overflow-y:auto;box-shadow:0 -8px 40px rgba(0,0,0,.8);transform:translateY(100%);transition:transform .32s cubic-bezier(.32,1,.6,1)}
+.modal-bg.open .profile-modal{transform:translateY(0)}
 .profile-modal::-webkit-scrollbar{width:4px}
 .profile-modal::-webkit-scrollbar-thumb{background:#1e2d45;border-radius:2px}
 .profile-header{padding:20px;border-bottom:1px solid #1e2d45;display:flex;align-items:center;gap:14px}
-.profile-avatar{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:#fff;flex-shrink:0}
+.profile-avatar{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:#fff;flex-shrink:0;overflow:hidden;border:3px solid #00c8ff}
+.profile-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 .profile-name{font-size:18px;font-weight:800;color:#ffffff}
 .profile-email{font-size:11px;color:#8a9bb0;margin-top:3px}
 .profile-body{padding:16px 20px 28px}
@@ -131,6 +135,30 @@ body{background:#0a0e1a;font-family:system-ui,-apple-system,sans-serif;min-heigh
 .lembrete-check{color:#00c8ff;font-size:11px;flex-shrink:0}
 
 /* FOOTER */
+.flyer-kpi{background:#111827;border:1px solid #1e2d45;border-radius:10px;padding:14px 16px;border-top:2px solid #ff8c00;margin-bottom:14px}
+.flyer-kpi-lbl{font-size:9px;letter-spacing:2px;color:#8a9bb0;text-transform:uppercase;margin-bottom:5px;font-weight:700}
+.flyer-kpi-val{font-size:28px;font-weight:800;color:#ff8c00;line-height:1}
+.flyer-kpi-sub{font-size:11px;color:#8a9bb0;margin-top:4px}
+.ranking-card{background:#111827;border:1px solid #1e2d45;border-radius:12px;padding:14px;margin-bottom:14px}
+.ranking-title{font-size:13px;font-weight:700;color:#ffffff;margin-bottom:12px}
+.ranking-list{display:flex;flex-direction:column;gap:8px}
+.ranking-item{display:flex;align-items:center;gap:10px;padding:8px 10px;background:#0d1528;border-radius:8px;border:1px solid #1e2d45}
+.ranking-pos{font-size:14px;font-weight:800;color:#8a9bb0;width:22px;text-align:center;flex-shrink:0}
+.ranking-pos.gold{color:#f59e0b}
+.ranking-pos.silver{color:#94a3b8}
+.ranking-pos.bronze{color:#b45309}
+.ranking-av{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0;overflow:hidden;border:2px solid #1e2d45}
+.ranking-av img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.ranking-nome{font-size:13px;font-weight:600;color:#ffffff;flex:1}
+.ranking-count{font-size:11px;font-weight:700;color:#00c8ff;background:rgba(0,200,255,.12);border:1px solid rgba(0,200,255,.25);padding:2px 8px;border-radius:8px;white-space:nowrap}
+.ranking-bar{height:3px;background:rgba(0,200,255,.15);border-radius:2px;margin-top:5px;overflow:hidden}
+.ranking-bar-fill{height:100%;background:linear-gradient(90deg,#0066ff,#00c8ff);border-radius:2px;transition:width .6s ease}
+.lideranca-card{background:#111827;border:1px solid #1e2d45;border-radius:12px;padding:14px;margin-bottom:14px}
+.lideranca-title{font-size:13px;font-weight:700;color:#ffffff;margin-bottom:12px}
+.lideranca-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.lideranca-item{background:#0d1528;border-radius:8px;padding:10px 12px;border:1px solid #1e2d45}
+.lideranca-label{font-size:9px;letter-spacing:1.5px;color:#8a9bb0;text-transform:uppercase;font-weight:700;margin-bottom:5px}
+.lideranca-nome{font-size:14px;font-weight:700;color:#ffffff}
 .footer{text-align:center;padding:20px 16px;border-top:1px solid #1e2d45}
 .footer-dev{font-size:12px;color:#8a9bb0}
 .footer-dev span{color:#00c8ff;font-weight:700}
@@ -173,7 +201,7 @@ body{background:#0a0e1a;font-family:system-ui,-apple-system,sans-serif;min-heigh
     <div class="kpis">
       <div class="kpi" style="--c:#00c8ff">
         <div class="kpi-lbl">👥 Membros</div>
-        <div class="kpi-val">17</div>
+        <div class="kpi-val">16</div>
         <div class="kpi-sub">na equipe</div>
       </div>
       <div class="kpi" style="--c:#00e57a">
@@ -187,17 +215,14 @@ body{background:#0a0e1a;font-family:system-ui,-apple-system,sans-serif;min-heigh
         <div class="kpi-sub">serviços</div>
       </div>
       <div class="kpi" style="--c:#ff6b8a">
-        <div class="kpi-lbl">📆 Dias Ativos</div>
-        <div class="kpi-val">14</div>
-        <div class="kpi-sub">com evento</div>
+        <div class="kpi-lbl">⏱️ Horas de Serviço</div>
+        <div class="kpi-val">54h</div>
+        <div class="kpi-sub">no mês de maio</div>
       </div>
     </div>
 
     <div class="cal-title">🗓️ Maio 2026</div>
-    <div class="week-labels">
-      <div class="week-lbl">D</div><div class="week-lbl">S</div><div class="week-lbl">T</div>
-      <div class="week-lbl">Q</div><div class="week-lbl">Q</div><div class="week-lbl">S</div><div class="week-lbl">S</div>
-    </div>
+
     <div class="calendar" id="calendar"></div>
 
     <div class="lembretes">
@@ -212,6 +237,31 @@ body{background:#0a0e1a;font-family:system-ui,-apple-system,sans-serif;min-heigh
         <div class="lembrete-item"><span class="lembrete-check">✓</span> Gravar kids</div>
         <div class="lembrete-item"><span class="lembrete-check">✓</span> Limpar sala</div>
         <div class="lembrete-item"><span class="lembrete-check">✓</span> All Black</div>
+      </div>
+    </div>
+
+    <!-- FLYER KPI -->
+    <div class="flyer-kpi">
+      <div class="flyer-kpi-lbl">🎨 Pedidos de Flyer</div>
+      <div class="flyer-kpi-val" id="flyer-count">--</div>
+      <div class="flyer-kpi-sub" id="flyer-sub">carregando...</div>
+    </div>
+
+    <!-- RANKING -->
+    <div class="ranking-card" id="ranking-card"></div>
+
+    <!-- LIDERANÇA -->
+    <div class="lideranca-card">
+      <div class="lideranca-title">✝️ Liderança da Equipe</div>
+      <div class="lideranca-grid">
+        <div class="lideranca-item">
+          <div class="lideranca-label">👑 Pastora Responsável</div>
+          <div class="lideranca-nome">Prª Amanda Duarte</div>
+        </div>
+        <div class="lideranca-item">
+          <div class="lideranca-label">🎯 Líderes</div>
+          <div class="lideranca-nome">Tom &amp; Evelyn</div>
+        </div>
       </div>
     </div>
 
@@ -261,9 +311,9 @@ function checkSenha(){
 }
 
 const ESCALA={
-  "01/05":[{ev:"Culto de Primícias",hora:"19h–22h",turno:"Sexta 19h",equipe:[{n:"Alisson",f:"Mesa"},{n:"Sarah",f:"Story/Fotos"}]}],
-  "02/05":[{ev:"One Move / Culto da Juventude",hora:"19h–22h",turno:"Sábado 19h",equipe:[{n:"Rafaela",f:"Mesa"},{n:"Luana",f:"Story/Fotos"}]},{ev:"Sopão do Amor",hora:"19h–22h",turno:"Sábado 19h",equipe:[{n:"Manuel",f:"Story/Fotos"}]}],
-  "03/05":[{ev:"Café de Integração",hora:"08h–11h",turno:"Domingo 08h",equipe:[{n:"Tom",f:"Mesa"},{n:"Duda",f:"Story/Fotos"}]},{ev:"Culto de Domingo",hora:"17h–20h",turno:"Domingo 17h",equipe:[{n:"Kemilly",f:"Mesa"},{n:"Jailson",f:"Story/Fotos"}]}],
+  "01/05":[{ev:"Culto de Primícias",hora:"19h–22h",turno:"Sexta 19h",equipe:[{n:"Ana Paula",f:"Mesa"},{n:"Sarah",f:"Story/Fotos"},{n:"Luanna",f:"Apoio"}]}],
+  "02/05":[{ev:"One Move / Culto da Juventude",hora:"19h–22h",turno:"Sábado 19h",equipe:[{n:"Rafaela",f:"Mesa"},{n:"Luanna",f:"Story/Fotos"}]},{ev:"Sopão do Amor",hora:"19h–22h",turno:"Sábado 19h",equipe:[{n:"Manuel",f:"Story/Fotos"}]}],
+  "03/05":[{ev:"Café de Integração",hora:"08h–11h",turno:"Domingo 08h",equipe:[{n:"Tom",f:"Mesa"},{n:"Duda",f:"Story/Fotos"}]},{ev:"Culto de Domingo",hora:"17h–20h",turno:"Domingo 17h",equipe:[{n:"Luanna",f:"Mesa"},{n:"Jailson",f:"Story/Fotos"}]}],
   "08/05":[{ev:"One Move / Culto da Juventude",hora:"19h–22h",turno:"Sexta 19h",equipe:[{n:"Sarah",f:"Mesa"},{n:"Ester",f:"Story/Fotos"}]}],
   "09/05":[{ev:"Rede de Mulheres",hora:"09h–12h",turno:"Sábado 09h",equipe:[{n:"Ana Paula",f:"Mesa"},{n:"Sarah",f:"Story/Fotos"}]}],
   "10/05":[{ev:"Culto de Domingo",hora:"17h–20h",turno:"Domingo 17h",equipe:[{n:"Duda",f:"Mesa"},{n:"Evelyn",f:"Story/Fotos"}]}],
@@ -274,7 +324,7 @@ const ESCALA={
   "23/05":[{ev:"Café com Mulheres",hora:"08h–11h",turno:"Sábado 08h",equipe:[{n:"Evelyn",f:"Mesa"},{n:"Ester",f:"Story/Fotos"}]}],
   "24/05":[{ev:"Culto de Domingo",hora:"17h–20h",turno:"Domingo 17h",equipe:[{n:"Duda",f:"Mesa"},{n:"Kemilly",f:"Story/Fotos"}]}],
   "29/05":[{ev:"Culto de Casais",hora:"19h–22h",turno:"Sexta 19h",equipe:[{n:"Rafaela",f:"Mesa"},{n:"Rebeca",f:"Story/Fotos"}]}],
-  "30/05":[{ev:"Louvorzão",hora:"19h–22h",turno:"Sábado 19h",equipe:[{n:"Luana",f:"Mesa"},{n:"Alisson",f:"Story/Fotos"}]}],
+  "30/05":[{ev:"Louvorzão",hora:"19h–22h",turno:"Sábado 19h",equipe:[{n:"Luanna",f:"Mesa"},{n:"Alisson",f:"Story/Fotos"}]}],
   "31/05":[{ev:"Culto de Domingo",hora:"17h–20h",turno:"Domingo 17h",equipe:[{n:"Luanna",f:"Mesa"},{n:"Manuel",f:"Story/Fotos"}]}],
 };
 
@@ -291,13 +341,14 @@ const MEMBROS={
   "Sarah":{nome:"Sarah de Souza de Andrade",email:"sarahluiza.1523@icloud.com",sangue:"Não sei",altura:"1,61 m",camisa:"P",tel:"(92) 98494-3941",ig:"a_sarhxs_",endereco:"Rua Guaraná"},
   "Alisson":{nome:"Alisson",email:"alissonsolis08@gmail.com",sangue:"",altura:"",camisa:"",tel:"",ig:"",endereco:""},
   "Duda":{nome:"Duda",email:"dudabritoagnnes0808@gmail.com",sangue:"",altura:"",camisa:"",tel:"",ig:"",endereco:""},
-  "Luana":{nome:"Luana",email:"luannajackelline@gmail.com",sangue:"",altura:"",camisa:"",tel:"",ig:"",endereco:""},
+  
   "Luanna":{nome:"Luanna",email:"luannajackelline@gmail.com",sangue:"",altura:"",camisa:"",tel:"",ig:"",endereco:""},
   "Manuel":{nome:"Manuel",email:"ramos999045611@gmail.com",sangue:"",altura:"",camisa:"",tel:"",ig:"",endereco:""},
   "Rafaela":{nome:"Rafaela",email:"rafaelavieiramonteiro91@gmail.com",sangue:"",altura:"",camisa:"",tel:"",ig:"",endereco:""},
   "Tom":{nome:"Tom",email:"hewertonfernades434@gmail.com",sangue:"",altura:"",camisa:"",tel:"",ig:"",endereco:""},
 };
 
+const FOTOS={};  // será preenchido com as fotos
 const AV=["linear-gradient(135deg,#0066ff,#00c8ff)","linear-gradient(135deg,#065f46,#10b981)","linear-gradient(135deg,#1d4ed8,#3b82f6)","linear-gradient(135deg,#9d174d,#ec4899)","linear-gradient(135deg,#92400e,#f59e0b)","linear-gradient(135deg,#1e3a5f,#0ea5e9)","linear-gradient(135deg,#14532d,#4ade80)","linear-gradient(135deg,#7c2d12,#f97316)"];
 const NL=Object.keys(MEMBROS);
 function avC(n){return AV[NL.indexOf(n)%AV.length]}
@@ -305,25 +356,85 @@ function ini(n){return n.split(" ").slice(0,2).map(x=>x[0]).join("").toUpperCase
 const DAYS_BR=["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"];
 const EV_C=["c1","c2","c3","c4","c5"];
 
+const EV_ICONS = {
+  "Culto":"⛪","One Move":"🔥","Café":"☕","Rede":"🌸","Conexão":"💪",
+  "Sopão":"🍲","Louvorzão":"🎶","Casais":"💑","Primícias":"✨","Domingo":"🙏"
+};
+function evIcon(name){
+  for(const[k,v] of Object.entries(EV_ICONS)) if(name.includes(k)) return v;
+  return "📅";
+}
+
+function buildRanking(){
+  const counts={};
+  Object.values(ESCALA).forEach(evs=>{
+    evs.forEach(ev=>{ev.equipe.forEach(m=>{counts[m.n]=(counts[m.n]||0)+1;});});
+  });
+  const sorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+  const max=sorted[0]?.[1]||1;
+  const posLabels=["gold","silver","bronze"];
+  const medals=["🥇","🥈","🥉"];
+  let html=`<div class="ranking-title">🏆 Ranking de Escalas — Maio</div><div class="ranking-list">`;
+  sorted.forEach(([name,count],i)=>{
+    const pc=Math.round((count/max)*100);
+    const posClass=i<3?posLabels[i]:"";
+    const medal=i<3?medals[i]:""+(i+1)+"°";
+    const m=MEMBROS[name]||{};
+    const avContent=FOTOS[name]
+      ?`<img src="${FOTOS[name]}" alt="${name}">`
+      :`<span>${ini(name)}</span>`;
+    html+=`<div class="ranking-item">
+      <div class="ranking-pos ${posClass}">${medal}</div>
+      <div class="ranking-av" style="background:${avC(name)}">${avContent}</div>
+      <div style="flex:1"><div class="ranking-nome">${name}</div>
+        <div class="ranking-bar"><div class="ranking-bar-fill" style="width:${pc}%"></div></div>
+      </div>
+      <div class="ranking-count">${count}x</div>
+    </div>`;
+  });
+  html+=`</div>`;
+  document.getElementById("ranking-card").innerHTML=html;
+}
+
+// Google Sheets — Pedidos de Flyer
+const SHEET_ID = "1Ry5g4Youo9Ja2lCZ-YpV-igkY5SbncNoDxxTO3Jm0wM";
+const SHEET_GID = "1063052778";
+
+async function loadFlyerCount(){
+  try{
+    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${SHEET_GID}`;
+    const res = await fetch(url);
+    if(!res.ok) throw new Error("erro");
+    const text = await res.text();
+    // conta linhas com dados (ignora cabeçalho)
+    const rows = text.trim().split("\n").filter(r => r.trim().length > 0);
+    const count = Math.max(0, rows.length - 1); // -1 pelo cabeçalho
+    document.getElementById("flyer-count").textContent = count;
+    document.getElementById("flyer-sub").textContent = count === 1 ? "solicitação recebida" : "solicitações recebidas";
+  } catch(e){
+    document.getElementById("flyer-count").textContent = "—";
+    document.getElementById("flyer-sub").textContent = "verifique o compartilhamento";
+  }
+}
+
 function buildCalendar(){
   const cal=document.getElementById("calendar");
-  for(let i=0;i<5;i++){const d=document.createElement("div");d.className="day empty";cal.appendChild(d);}
-  for(let day=1;day<=31;day++){
+  // só dias com eventos
+  const daysWithEvents=Object.keys(ESCALA).map(k=>parseInt(k)).sort((a,b)=>a-b);
+  daysWithEvents.forEach(day=>{
     const key=String(day).padStart(2,"0")+"/05";
     const evs=ESCALA[key]||[];
     const dow=(5+day-1)%7;
     const d=document.createElement("div");
-    d.className="day"+(evs.length?" has-events":"");
-    let inner=`<div class="day-num"><span>${day}</span><span class="dow">${DAYS_BR[dow][0]}</span></div>`;
-    if(evs.length){
-      evs.forEach((e,i)=>{
-        inner+=`<div class="event-mini ${EV_C[i%5]}">${e.ev}</div>`;
-      });
-    }
+    d.className="day has-events";
+    let inner=`<div class="day-num"><span>${day}</span><span class="dow">${DAYS_BR[dow]}</span></div>`;
+    evs.forEach((e,i)=>{
+      inner+=`<div class="event-mini ${EV_C[i%5]}">${evIcon(e.ev)} ${e.ev}</div>`;
+    });
     d.innerHTML=inner;
-    if(evs.length) d.onclick=()=>openModal(day,evs);
+    d.onclick=()=>openModal(day,evs);
     cal.appendChild(d);
-  }
+  });
 }
 
 function openModal(day,evs){
@@ -356,8 +467,10 @@ function closeModal(){
 
 function openProfile(name){
   const m=MEMBROS[name]||{};
-  document.getElementById("p-avatar").style.background=avC(name);
-  document.getElementById("p-avatar").textContent=ini(name);
+  const pa=document.getElementById("p-avatar");
+  pa.style.background=avC(name);
+  if(FOTOS[name]){pa.innerHTML=`<img src="${FOTOS[name]}" alt="${name}">`;}
+  else{pa.textContent=ini(name);}
   document.getElementById("p-name").textContent=m.nome||name;
   document.getElementById("p-email").textContent=m.email||"—";
   let escalaDates=[];
@@ -386,6 +499,8 @@ function closeProfile(){
 }
 window.closeModal=closeModal;window.openProfile=openProfile;window.closeProfile=closeProfile;
 buildCalendar();
+buildRanking();
+loadFlyerCount();
 </script>
 </body>
 </html>
