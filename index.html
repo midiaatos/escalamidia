@@ -125,6 +125,11 @@ body{background:#0a0e1a;font-family:system-ui,-apple-system,sans-serif;min-heigh
 .profile-val.empty{color:#2a3a55;font-style:italic;font-weight:400}
 .profile-escala-title{font-size:9px;letter-spacing:1.5px;color:#8a9bb0;text-transform:uppercase;font-weight:700;margin-bottom:8px}
 .escala-item{font-size:11px;color:#ffffff;padding:8px 10px;background:#0d1528;border-radius:8px;margin-bottom:6px;border:1px solid #1e2d45;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.resumo-card{background:#0d1528;border:1px solid #1e2d45;border-radius:10px;padding:12px 14px;margin-bottom:14px}
+.resumo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
+.resumo-item{text-align:center;background:#111827;border-radius:8px;padding:10px 6px;border:1px solid #1e2d45}
+.resumo-val{font-size:22px;font-weight:800;color:#00c8ff;line-height:1}
+.resumo-lbl{font-size:9px;color:#8a9bb0;text-transform:uppercase;letter-spacing:1px;margin-top:4px;font-weight:600}
 .back-btn{display:flex;align-items:center;gap:6px;background:#0a0e1a;border:1px solid #1e2d45;color:#8a9bb0;font-size:12px;padding:8px 14px;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:600;margin-bottom:14px;width:100%;justify-content:center}
 
 /* LEMBRETES */
@@ -139,6 +144,7 @@ body{background:#0a0e1a;font-family:system-ui,-apple-system,sans-serif;min-heigh
 .flyer-kpi-lbl{font-size:9px;letter-spacing:2px;color:#8a9bb0;text-transform:uppercase;margin-bottom:5px;font-weight:700}
 .flyer-kpi-val{font-size:28px;font-weight:800;color:#ff8c00;line-height:1}
 .flyer-kpi-sub{font-size:11px;color:#8a9bb0;margin-top:4px}
+.flyer-kpi-source{font-size:10px;color:#3a4a62;margin-top:8px;padding-top:8px;border-top:1px solid #1e2d45}
 .ranking-card{background:#111827;border:1px solid #1e2d45;border-radius:12px;padding:14px;margin-bottom:14px}
 .ranking-title{font-size:13px;font-weight:700;color:#ffffff;margin-bottom:12px}
 .ranking-list{display:flex;flex-direction:column;gap:8px}
@@ -196,7 +202,7 @@ body{background:#0a0e1a;font-family:system-ui,-apple-system,sans-serif;min-heigh
 
   <div class="main">
     <div class="page-title">📅 Escala de Maio 2026</div>
-    <div class="page-sub">Toque em um dia para ver a escala · Toque no membro para ver o cadastro</div>
+
 
     <div class="kpis">
       <div class="kpi" style="--c:#00c8ff">
@@ -245,6 +251,7 @@ body{background:#0a0e1a;font-family:system-ui,-apple-system,sans-serif;min-heigh
       <div class="flyer-kpi-lbl">🎨 Pedidos de Flyer</div>
       <div class="flyer-kpi-val" id="flyer-count">--</div>
       <div class="flyer-kpi-sub" id="flyer-sub">carregando...</div>
+      <div class="flyer-kpi-source">Dados coletados diretamente do <a href="https://www.jotform.com" target="_blank" style="color:#ff8c00;text-decoration:none;font-weight:700">jotform.com</a></div>
     </div>
 
     <!-- RANKING -->
@@ -329,23 +336,22 @@ const ESCALA={
 };
 
 const MEMBROS={
-  "Heriton":{nome:"Heriton Fernandes Pereira",email:"heritonfernandes07@gmail.com",sangue:"O+",altura:"1,70 m",camisa:"GG",tel:"(92) 98432-0210",ig:"@heritonffernandes",endereco:"Av. das Garças, N° 403 - Novo Aleixo"},
-  "Evelyn":{nome:"Evelyn de Souza Solis",email:"evelynsolis9182@gmail.com",sangue:"A+",altura:"1,55 m",camisa:"P",tel:"(92) 99118-0896",ig:"Evelynsolis_",endereco:"Av. das Torres, 8120, Lago Azul"},
-  "Jailson":{nome:"Jailson Silva de Sena",email:"jailsonsenna19@gmail.com",sangue:"A+",altura:"1,70 m",camisa:"M",tel:"(92) 99186-9091",ig:"@jailsenna",endereco:"Rua Joel Silva N° 15A"},
-  "Rebeca":{nome:"Rebeca Ferreira da Silva",email:"rebecayasmim815@gmail.com",sangue:"O+",altura:"1,65 m",camisa:"M",tel:"(92) 99393-6799",ig:"Rebecasilva_0001",endereco:"Rua Santa Etelvina, 37"},
-  "Ana Paula":{nome:"Ana Paula Silva de Freitas",email:"apsdfreitas28@gmail.com",sangue:"Não sei",altura:"1,65 m",camisa:"G",tel:"(92) 99148-2333",ig:"@4nafrtts",endereco:"R. Pastor Benício Leão, 56 - Nova Cidade"},
-  "Isabelly":{nome:"Isabelle Eloyza França da Silva",email:"belleeloyza2311@gmail.com",sangue:"O+",altura:"1,52 m",camisa:"P",tel:"(92) 99108-8055",ig:"Isabelleeloyza",endereco:"Rua Ibicoara 255, Novo Aleixo"},
-  "Ester":{nome:"Ester Sofia",email:"me5026756@gmail.com",sangue:"A+",altura:"1,56 m",camisa:"PP",tel:"(92) 98627-7841",ig:"Estersofiiia",endereco:"Condomínio Viva Vida Flores"},
-  "Gustavo":{nome:"Gustavo Alves Bader",email:"gustavoalvesbader@gmail.com",sangue:"O-",altura:"1,85 m",camisa:"M",tel:"(92) 98609-6328",ig:"Bader.gustavo",endereco:"Av. Torquato Tapajós, 11675, Tarumã"},
-  "Kemilly":{nome:"Kemilly da Silva Barbosa",email:"kemillybarbosa279@gmail.com",sangue:"O+",altura:"1,57 m",camisa:"PP",tel:"(92) 85090-5890",ig:"@kemillyy.a_",endereco:"Rua Jasmim, N° 91, Santa Etelvina"},
-  "Sarah":{nome:"Sarah de Souza de Andrade",email:"sarahluiza.1523@icloud.com",sangue:"Não sei",altura:"1,61 m",camisa:"P",tel:"(92) 98494-3941",ig:"a_sarhxs_",endereco:"Rua Guaraná"},
-  "Alisson":{nome:"Alisson",email:"alissonsolis08@gmail.com",sangue:"",altura:"",camisa:"",tel:"",ig:"",endereco:""},
-  "Duda":{nome:"Duda",email:"dudabritoagnnes0808@gmail.com",sangue:"",altura:"",camisa:"",tel:"",ig:"",endereco:""},
-  
-  "Luanna":{nome:"Luanna",email:"luannajackelline@gmail.com",sangue:"",altura:"",camisa:"",tel:"",ig:"",endereco:""},
-  "Manuel":{nome:"Manuel",email:"ramos999045611@gmail.com",sangue:"",altura:"",camisa:"",tel:"",ig:"",endereco:""},
-  "Rafaela":{nome:"Rafaela",email:"rafaelavieiramonteiro91@gmail.com",sangue:"",altura:"",camisa:"",tel:"",ig:"",endereco:""},
-  "Tom":{nome:"Tom",email:"hewertonfernades434@gmail.com",sangue:"",altura:"",camisa:"",tel:"",ig:"",endereco:""},
+  "Heriton":{nome:"Heriton Fernandes Pereira",email:"heritonfernandes07@gmail.com",sangue:"O+",altura:"1,70 m",camisa:"GG",tel:"(92) 98432-0210",ig:"@heritonffernandes",endereco:"Av. das Garças, N° 403 - Novo Aleixo",nasc:"15/01/2003"},
+  "Evelyn":{nome:"Evelyn de Souza Solis",email:"evelynsolis9182@gmail.com",sangue:"A+",altura:"1,55 m",camisa:"P",tel:"(92) 99118-0896",ig:"Evelynsolis_",endereco:"Av. das Torres, 8120, Lago Azul - Cond. Viva Vida Flores, Bl 2, Apto 501",nasc:"17/11/1999"},
+  "Jailson":{nome:"Jailson Silva de Sena",email:"jailsonsenna19@gmail.com",sangue:"A+",altura:"1,70 m",camisa:"M",tel:"(92) 99186-9091",ig:"@jailsenna",endereco:"Rua Joel Silva N° 15A",nasc:"11/11/1997"},
+  "Rebeca":{nome:"Rebeca Ferreira da Silva",email:"rebecayasmim815@gmail.com",sangue:"O+",altura:"1,65 m",camisa:"M",tel:"(92) 99393-6799",ig:"Rebecasilva_0001",endereco:"Rua Santa Etelvina, 37",nasc:"22/09/2003"},
+  "Ana Paula":{nome:"Ana Paula Silva de Freitas",email:"apsdfreitas28@gmail.com",sangue:"O+",altura:"1,65 m",camisa:"G",tel:"(92) 99148-2333",ig:"@4nafrtts",endereco:"R. Pastor Benício Leão, 56 - Nova Cidade",nasc:"28/02/1997"},
+  "Isabelly":{nome:"Isabelle Eloyza França da Silva",email:"belleeloyza2311@gmail.com",sangue:"O+",altura:"1,52 m",camisa:"P",tel:"(92) 99108-8055",ig:"Isabelleeloyza",endereco:"Rua Ibicoara 255, Novo Aleixo",nasc:"23/11/2011"},
+  "Ester":{nome:"Ester Sofia",email:"me5026756@gmail.com",sangue:"A+",altura:"1,56 m",camisa:"PP",tel:"(92) 98627-7841",ig:"Estersofiiia",endereco:"Condomínio Viva Vida Flores",nasc:"01/04/2005"},
+  "Gustavo":{nome:"Gustavo Alves Bader",email:"gustavoalvesbader@gmail.com",sangue:"O-",altura:"1,85 m",camisa:"M",tel:"(92) 98609-6328",ig:"Bader.gustavo",endereco:"Av. Torquato Tapajós, 11675, Tarumã",nasc:"24/07/2011"},
+  "Kemilly":{nome:"Kemilly da Silva Barbosa",email:"kemillybarbosa279@gmail.com",sangue:"O+",altura:"1,57 m",camisa:"PP",tel:"(92) 85090-5890",ig:"@kemillyy.a_",endereco:"Rua Jasmim, N° 91, Santa Etelvina",nasc:"23/06/2010"},
+  "Sarah":{nome:"Sarah de Souza de Andrade",email:"sarahluiza.1523@icloud.com",sangue:"O+",altura:"1,61 m",camisa:"P",tel:"(92) 98494-3941",ig:"a_sarhxs_",endereco:"Rua Guaraná",nasc:"14/02/2010"},
+  "Manuel":{nome:"Manuel Neto Ramos de Souza",email:"ramos999045611@gmail.com",sangue:"O+",altura:"1,73 m",camisa:"G",tel:"(92) 99904-5611",ig:"manuelhxz",endereco:"Rua das Mangueiras, 317",nasc:"14/01/2010"},
+  "Rafaela":{nome:"Rafaela Vieira Monteiro",email:"rafaelavieiramonteiro91@gmail.com",sangue:"A+",altura:"1,53 m",camisa:"G",tel:"(92) 98462-2499",ig:"@raffavieiramonteiro",endereco:"Rua Mariza Mendes, N° 05",nasc:"04/06/1996"},
+  "Luanna":{nome:"Luanna Jackelinne Tavares",email:"luanna.250757@fmm.org.br",sangue:"O+",altura:"1,55 m",camisa:"G",tel:"(92) 98403-8848",ig:"@aanaqzy_",endereco:"Beco João Samba, N° 2 - Petrópolis",nasc:"22/10/2009"},
+  "Duda":{nome:"Maria Eduarda de Brito Lima",email:"dudabritoagnnes0808@gmail.com",sangue:"A+",altura:"1,54 m",camisa:"P",tel:"(92) 98637-3733",ig:"dudaagnnes",endereco:"Condomínio Viva Vida Flores",nasc:"30/07/2007"},
+  "Alisson":{nome:"Alisson de Souza Solis",email:"alissonsolis08@gmail.com",sangue:"A+",altura:"1,76 m",camisa:"G",tel:"(92) 99262-5966",ig:"Alisson.solisvs",endereco:"Condomínio Vila das Flores",nasc:"15/11/2005"},
+  "Tom":{nome:"Hewerton Fernandes Pereira",email:"hewertonfernades434@gmail.com",sangue:"O+",altura:"1,82 m",camisa:"GG",tel:"(92) 99158-7904",ig:"hewerton_fernandes",endereco:"Av. Gov. José Lindoso - Cond. Viva Vida Flores",nasc:"18/08/1996"}
 };
 
 const FOTOS={};  // será preenchido com as fotos
@@ -383,13 +389,14 @@ function buildRanking(){
     const avContent=FOTOS[name]
       ?`<img src="${FOTOS[name]}" alt="${name}">`
       :`<span>${ini(name)}</span>`;
-    html+=`<div class="ranking-item">
+    html+=`<div class="ranking-item" onclick="openProfile('${name}')" style="cursor:pointer">
       <div class="ranking-pos ${posClass}">${medal}</div>
       <div class="ranking-av" style="background:${avC(name)}">${avContent}</div>
       <div style="flex:1"><div class="ranking-nome">${name}</div>
         <div class="ranking-bar"><div class="ranking-bar-fill" style="width:${pc}%"></div></div>
       </div>
       <div class="ranking-count">${count}x</div>
+      <div style="color:#3a4a62;font-size:11px;margin-left:4px">›</div>
     </div>`;
   });
   html+=`</div>`;
@@ -479,6 +486,7 @@ function openProfile(name){
   });
   const fields=[
     {l:"🩸 Tipo Sanguíneo",v:m.sangue},
+    {l:"🎂 Data de Nascimento",v:m.nasc},
     {l:"📏 Altura",v:m.altura},
     {l:"👕 Tamanho Camisa",v:m.camisa},
     {l:"📱 Telefone",v:m.tel},
@@ -486,8 +494,29 @@ function openProfile(name){
   ];
   let gridHTML=fields.map(f=>`<div class="profile-item"><div class="profile-lbl">${f.l}</div><div class="profile-val ${f.v?"":"empty"}">${f.v||"Não informado"}</div></div>`).join("");
   gridHTML+=`<div class="profile-item full"><div class="profile-lbl">📍 Endereço</div><div class="profile-val ${m.endereco?"":"empty"}">${m.endereco||"Não informado"}</div></div>`;
-  const fc_map={"Mesa":"func-mesa","Story/Fotos":"func-story"};
-  let escalaHTML=escalaDates.length?`<div class="profile-escala-title">📅 Escala em Maio</div>`+escalaDates.map(e=>`<div class="escala-item"><span>${e.date} · ${e.ev}</span><span class="func-badge ${fc_map[e.func]||""}">${e.func}</span></div>`).join(""):"";
+  const fc_map={"Mesa":"func-mesa","Story/Fotos":"func-story","Apoio":"func-story"};
+  
+  // Resumo por função
+  const totalMesa = escalaDates.filter(e=>e.func==="Mesa").length;
+  const totalStory = escalaDates.filter(e=>e.func==="Story/Fotos").length;
+  const totalApoio = escalaDates.filter(e=>e.func==="Apoio").length;
+  const totalServicos = escalaDates.length;
+
+  let resumoHTML = "";
+  if(escalaDates.length){
+    resumoHTML = `<div class="resumo-card">
+      <div class="profile-escala-title">📊 Resumo do Mês</div>
+      <div class="resumo-grid">
+        <div class="resumo-item"><div class="resumo-val">${totalServicos}</div><div class="resumo-lbl">Serviços</div></div>
+        ${totalMesa?`<div class="resumo-item"><div class="resumo-val">${totalMesa}</div><div class="resumo-lbl">Mesa</div></div>`:""}
+        ${totalStory?`<div class="resumo-item"><div class="resumo-val">${totalStory}</div><div class="resumo-lbl">Story/Fotos</div></div>`:""}
+        ${totalApoio?`<div class="resumo-item"><div class="resumo-val">${totalApoio}</div><div class="resumo-lbl">Apoio</div></div>`:""}
+      </div>
+    </div>`;
+  }
+
+  let escalaHTML=escalaDates.length?`<div class="profile-escala-title" style="margin-top:14px">📅 Eventos em Maio</div>`+escalaDates.map(e=>`<div class="escala-item"><span>${e.date} · ${e.ev}</span><span class="func-badge ${fc_map[e.func]||""}">${e.func}</span></div>`).join(""):"";
+  escalaHTML = resumoHTML + escalaHTML;
   document.getElementById("p-body").innerHTML=`<button class="back-btn" onclick="closeProfile()">← Voltar para a escala</button><div class="profile-grid">${gridHTML}</div>${escalaHTML}`;
   document.getElementById("profile-bg").classList.add("open");
   document.body.style.overflow="hidden";
