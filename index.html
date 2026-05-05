@@ -16,7 +16,7 @@ body{background:#0a0e1a;font-family:system-ui,-apple-system,sans-serif;min-heigh
 .login-input{width:100%;background:#0a0e1a;border:1px solid #2a3a55;border-radius:10px;padding:14px 16px;color:#ffffff;font-size:16px;font-family:inherit;outline:none;text-align:center;letter-spacing:4px;margin-bottom:14px;transition:border-color .15s}
 .login-input:focus{border-color:#00c8ff}
 .login-input::placeholder{letter-spacing:0;color:#2a3a55;font-size:14px}
-.login-btn{width:100%;background:linear-gradient(135deg,#0066ff,#00c8ff);border:none;border-radius:10px;padding:14px;color:#ffffff;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity .15s}
+.login-btn{width:100%;background:linear-gradient(135deg,#0066ff,#00c8ff);background-size:200% 200%;border:none;border-radius:10px;padding:14px;color:#ffffff;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity .15s;animation:gradientShift 3s ease infinite}
 .login-btn:active{opacity:.85}
 .login-error{color:#ff6b8a;font-size:13px;margin-top:10px;display:none}
 .login-error.show{display:block}
@@ -25,32 +25,39 @@ body{background:#0a0e1a;font-family:system-ui,-apple-system,sans-serif;min-heigh
 .app.show{display:block}
 
 .topbar{background:#111827;border-bottom:1px solid #1e2d45;padding:0 16px;display:flex;align-items:center;justify-content:space-between;height:52px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.5)}
-.logo-img{height:32px;width:auto;mix-blend-mode:screen}
+.logo-img{height:32px;width:auto;mix-blend-mode:screen;animation:float 3.5s ease-in-out infinite}
 .topbar-right{display:flex;align-items:center;gap:8px}
-.live-dot{width:7px;height:7px;border-radius:50%;background:#00e57a;box-shadow:0 0 6px #00e57a;flex-shrink:0}
+.live-dot{width:7px;height:7px;border-radius:50%;background:#00e57a;box-shadow:0 0 6px #00e57a;flex-shrink:0;animation:pulse-ring 2s infinite,pulse 2s infinite}
 .live-lbl{font-size:10px;color:#00e57a;letter-spacing:1px;text-transform:uppercase;font-weight:700}
-.badge{font-size:10px;color:#ffffff;padding:3px 10px;border:1px solid #1e2d45;border-radius:20px;background:#0a0e1a}
+.badge{font-size:10px;color:#ffffff;padding:3px 10px;border:1px solid #1e2d45;border-radius:20px;background:#0a0e1a;animation:scaleIn .5s .6s ease both}
 
-.breadcrumb{background:#0d1120;border-bottom:1px solid #1e2d45;padding:8px 16px;font-size:11px;color:#8a9bb0}
+.breadcrumb{background:#0d1120;border-bottom:1px solid #1e2d45;padding:8px 16px;font-size:11px;color:#8a9bb0;animation:fadeInDown .4s .1s ease both}
 .breadcrumb span{color:#00c8ff;font-weight:600}
 
 .main{padding:16px}
 
-.page-title{font-size:20px;font-weight:800;color:#ffffff;margin-bottom:20px}
+.page-title{font-size:20px;font-weight:800;color:#ffffff;margin-bottom:20px;animation:fadeInDown .55s cubic-bezier(.34,1.56,.64,1) both}
+
+/* Loading */
+.loading{text-align:center;padding:40px 20px;color:#8a9bb0;font-size:13px}
+.loading-spinner{width:32px;height:32px;border:3px solid #1e2d45;border-top-color:#00c8ff;border-radius:50%;margin:0 auto 12px;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 
 .kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:22px}
-.kpi{background:#111827;border:1px solid #1e2d45;border-radius:10px;padding:14px;border-top:2px solid var(--c);transition:transform .2s,box-shadow .2s,border-color .2s}
-.kpi:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.3);border-color:var(--c)}
+.kpi{background:#111827;border:1px solid #1e2d45;border-radius:10px;padding:14px;border-top:2px solid var(--c);transition:transform .2s,box-shadow .2s,border-color .2s;animation:scaleInBounce .55s cubic-bezier(.34,1.56,.64,1) both}
+.kpi:nth-child(1){animation-delay:.05s}.kpi:nth-child(2){animation-delay:.12s}
+.kpi:nth-child(3){animation-delay:.19s}.kpi:nth-child(4){animation-delay:.26s}
+.kpi:hover{transform:translateY(-4px) scale(1.03);box-shadow:0 8px 24px rgba(0,0,0,.4),0 0 20px rgba(0,200,255,.1);border-color:var(--c)}
 .kpi-lbl{font-size:9px;letter-spacing:1.5px;color:#8a9bb0;text-transform:uppercase;margin-bottom:5px;font-weight:700}
-.kpi-val{font-size:26px;font-weight:800;color:var(--c);line-height:1}
+.kpi-val{font-size:26px;font-weight:800;color:var(--c);line-height:1;animation:countUp .7s cubic-bezier(.34,1.56,.64,1) .35s both}
 .kpi-sub{font-size:10px;color:#8a9bb0;margin-top:4px}
 
-.cal-title{font-size:16px;font-weight:700;color:#ffffff;margin-bottom:12px}
+.cal-title{font-size:16px;font-weight:700;color:#ffffff;margin-bottom:12px;animation:fadeInUp .5s .2s ease both}
 .calendar{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:22px}
-
-.day{background:#111827;border:1px solid #1e2d45;border-radius:10px;min-height:60px;padding:10px;cursor:pointer;transition:all .2s;position:relative}
+.day{background:#111827;border:1px solid #1e2d45;border-radius:10px;min-height:60px;padding:10px;cursor:pointer;transition:all .2s;position:relative;animation:popIn .4s cubic-bezier(.34,1.56,.64,1) both}
+.day:nth-child(odd){animation-delay:.05s}.day:nth-child(even){animation-delay:.1s}
 .day:active{transform:scale(.97)}
-.day:hover{border-color:#00c8ff;background:#0d1528;transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,200,255,.15)}
+.day:hover{border-color:#00c8ff;background:#0d1528;transform:translateY(-4px) scale(1.03);box-shadow:0 8px 24px rgba(0,200,255,.2)}
 .day-num{font-size:13px;font-weight:700;color:#ffffff;margin-bottom:6px;display:flex;align-items:center;justify-content:space-between}
 .day-num .dow{font-size:9px;color:#8a9bb0;letter-spacing:.5px;text-transform:uppercase;font-weight:600}
 .event-mini{font-size:8px;color:#ffffff;padding:3px 5px;border-radius:3px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;line-height:1.4;display:block;border-left:2px solid}
@@ -63,15 +70,15 @@ body{background:#0a0e1a;font-family:system-ui,-apple-system,sans-serif;min-heigh
 .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0);z-index:200;display:none;align-items:flex-end;justify-content:center;backdrop-filter:blur(0px);transition:background .3s,backdrop-filter .3s}
 .modal-bg.open{display:flex;background:rgba(0,0,0,.85);backdrop-filter:blur(4px)}
 .modal{background:#111827;border:1px solid #1e2d45;border-radius:20px 20px 0 0;width:100%;max-width:500px;max-height:88vh;overflow-y:auto;box-shadow:0 -8px 40px rgba(0,0,0,.8);transform:translateY(100%);transition:transform .35s cubic-bezier(.32,1,.6,1)}
-.modal-bg.open .modal{transform:translateY(0)}
+.modal-bg.open .modal,.modal-bg.open .profile-modal{transform:translateY(0)}
 .modal::-webkit-scrollbar{width:4px}
 .modal::-webkit-scrollbar-thumb{background:#1e2d45;border-radius:2px}
 .modal-handle{width:36px;height:4px;background:#2a3a55;border-radius:2px;margin:12px auto 0}
 .modal-header{padding:16px 20px 14px;border-bottom:1px solid #1e2d45;display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
 .modal-date{font-size:18px;font-weight:800;color:#ffffff}
 .modal-sub{font-size:12px;color:#8a9bb0;margin-top:2px}
-.modal-close{background:#0a0e1a;border:1px solid #1e2d45;color:#8a9bb0;width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
-.modal-close:hover{border-color:#00c8ff;color:#ffffff}
+.modal-close{background:#0a0e1a;border:1px solid #1e2d45;color:#8a9bb0;width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .25s cubic-bezier(.34,1.56,.64,1)}
+.modal-close:hover{border-color:#ff6b8a;color:#ff6b8a;transform:rotate(90deg)}
 .modal-body{padding:16px 20px 28px}
 .event-block{background:#0d1528;border:1px solid #1e2d45;border-radius:12px;padding:14px;margin-bottom:12px;animation:fadeInUp .3s ease both}
 .event-block:last-child{margin-bottom:0}
@@ -79,9 +86,9 @@ body{background:#0a0e1a;font-family:system-ui,-apple-system,sans-serif;min-heigh
 .event-time{font-size:11px;color:#8a9bb0;margin-bottom:12px}
 .event-time span{color:#00c8ff;font-weight:600}
 .team-list{display:flex;flex-direction:column;gap:8px}
-.team-member{display:flex;align-items:center;gap:10px;padding:10px 12px;background:#111827;border-radius:10px;border:1px solid #1e2d45;cursor:pointer;transition:all .15s;animation:slideInLeft .3s ease both}
-.team-member:active{transform:scale(.97)}
-.team-member:hover{border-color:#00c8ff;background:rgba(0,200,255,.06)}
+.team-member{display:flex;align-items:center;gap:10px;padding:10px 12px;background:#111827;border-radius:10px;border:1px solid #1e2d45;cursor:pointer;transition:all .2s cubic-bezier(.34,1.56,.64,1);animation:slideInLeft .35s ease both}
+.team-member:nth-child(1){animation-delay:.08s}.team-member:nth-child(2){animation-delay:.14s}.team-member:nth-child(3){animation-delay:.2s}
+.team-member:hover{border-color:#00c8ff;transform:translateX(5px) scale(1.02);box-shadow:0 4px 16px rgba(0,200,255,.15)}
 .member-av{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;flex-shrink:0;overflow:hidden;border:2px solid #1e2d45}
 .member-av img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 .member-name{font-size:14px;font-weight:600;color:#ffffff}
@@ -92,7 +99,6 @@ body{background:#0a0e1a;font-family:system-ui,-apple-system,sans-serif;min-heigh
 .ver-perfil{color:#8a9bb0;font-size:11px;margin-left:auto;white-space:nowrap}
 
 .profile-modal{background:#111827;border:1px solid #1e2d45;border-radius:20px 20px 0 0;width:100%;max-width:500px;max-height:88vh;overflow-y:auto;box-shadow:0 -8px 40px rgba(0,0,0,.8);transform:translateY(100%);transition:transform .35s cubic-bezier(.32,1,.6,1)}
-.modal-bg.open .profile-modal{transform:translateY(0)}
 .profile-modal::-webkit-scrollbar{width:4px}
 .profile-modal::-webkit-scrollbar-thumb{background:#1e2d45;border-radius:2px}
 .profile-header{padding:20px;border-bottom:1px solid #1e2d45;display:flex;align-items:center;gap:14px}
@@ -102,117 +108,77 @@ body{background:#0a0e1a;font-family:system-ui,-apple-system,sans-serif;min-heigh
 .profile-email{font-size:11px;color:#8a9bb0;margin-top:3px}
 .profile-body{padding:16px 20px 28px}
 .profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
-.profile-item{background:#0d1528;border-radius:10px;padding:12px;border:1px solid #1e2d45;transition:border-color .15s}
-.profile-item:hover{border-color:#00c8ff}
+.profile-item{background:#0d1528;border-radius:10px;padding:12px;border:1px solid #1e2d45;transition:all .2s cubic-bezier(.34,1.56,.64,1)}
+.profile-item:hover{border-color:#00c8ff;transform:scale(1.03)}
 .profile-item.full{grid-column:1/-1}
 .profile-lbl{font-size:9px;letter-spacing:1.5px;color:#8a9bb0;text-transform:uppercase;font-weight:700;margin-bottom:5px}
 .profile-val{font-size:13px;color:#ffffff;font-weight:500;line-height:1.4}
 .profile-val.empty{color:#2a3a55;font-style:italic;font-weight:400}
 .profile-escala-title{font-size:9px;letter-spacing:1.5px;color:#8a9bb0;text-transform:uppercase;font-weight:700;margin-bottom:8px}
-.escala-item{font-size:11px;color:#ffffff;padding:8px 10px;background:#0d1528;border-radius:8px;margin-bottom:6px;border:1px solid #1e2d45;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;animation:slideInLeft .3s ease both}
+.escala-item{font-size:11px;color:#ffffff;padding:8px 10px;background:#0d1528;border-radius:8px;margin-bottom:6px;border:1px solid #1e2d45;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;animation:slideInLeft .3s ease both;transition:all .2s}
+.escala-item:hover{border-color:#00c8ff;transform:translateX(4px)}
 .back-btn{display:flex;align-items:center;gap:6px;background:#0a0e1a;border:1px solid #1e2d45;color:#8a9bb0;font-size:12px;padding:8px 14px;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:600;margin-bottom:14px;width:100%;justify-content:center;transition:all .15s}
 .back-btn:hover{border-color:#00c8ff;color:#ffffff}
-
 .resumo-card{background:#0d1528;border:1px solid #1e2d45;border-radius:10px;padding:12px 14px;margin-bottom:14px}
 .resumo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
 .resumo-item{text-align:center;background:#111827;border-radius:8px;padding:10px 6px;border:1px solid #1e2d45}
-.resumo-val{font-size:22px;font-weight:800;color:#00c8ff;line-height:1}
+.resumo-val{font-size:22px;font-weight:800;color:#00c8ff;line-height:1;animation:countUp .6s cubic-bezier(.34,1.56,.64,1) .2s both}
 .resumo-lbl{font-size:9px;color:#8a9bb0;text-transform:uppercase;letter-spacing:1px;margin-top:4px;font-weight:600}
 
-.ranking-card{background:#111827;border:1px solid #1e2d45;border-radius:12px;padding:14px;margin-bottom:14px}
+.ranking-card{background:#111827;border:1px solid #1e2d45;border-radius:12px;padding:14px;margin-bottom:14px;animation:fadeInUp .5s .35s ease both}
 .ranking-title{font-size:13px;font-weight:700;color:#ffffff;margin-bottom:12px}
 .ranking-list{display:flex;flex-direction:column;gap:8px}
-.ranking-item{display:flex;align-items:center;gap:10px;padding:8px 10px;background:#0d1528;border-radius:8px;border:1px solid #1e2d45;cursor:pointer;transition:all .15s}
-.ranking-item:hover{border-color:#00c8ff;background:rgba(0,200,255,.06)}
-.ranking-item:active{transform:scale(.98)}
+.ranking-item{display:flex;align-items:center;gap:10px;padding:8px 10px;background:#0d1528;border-radius:8px;border:1px solid #1e2d45;cursor:pointer;transition:all .2s;animation:rankIn .4s ease both}
+.ranking-item:nth-child(1){animation-delay:.1s}.ranking-item:nth-child(2){animation-delay:.15s}
+.ranking-item:nth-child(3){animation-delay:.2s}.ranking-item:nth-child(4){animation-delay:.25s}
+.ranking-item:nth-child(5){animation-delay:.3s}.ranking-item:nth-child(6){animation-delay:.35s}
+.ranking-item:hover{border-color:#00c8ff;background:rgba(0,200,255,.07);transform:translateX(4px)}
 .ranking-pos{font-size:14px;font-weight:800;color:#8a9bb0;width:22px;text-align:center;flex-shrink:0}
-.ranking-pos.gold{color:#f59e0b}.ranking-pos.silver{color:#94a3b8}.ranking-pos.bronze{color:#b45309}
+.ranking-pos.gold{color:#f59e0b;animation:glowPulse 2s ease infinite}
+.ranking-pos.silver{color:#94a3b8}.ranking-pos.bronze{color:#b45309}
 .ranking-av{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0;overflow:hidden;border:2px solid #1e2d45}
 .ranking-av img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 .ranking-nome{font-size:13px;font-weight:600;color:#ffffff;flex:1}
-.ranking-count{font-size:11px;font-weight:700;color:#00c8ff;background:rgba(0,200,255,.12);border:1px solid rgba(0,200,255,.25);padding:2px 8px;border-radius:8px;white-space:nowrap}
+.ranking-count{font-size:11px;font-weight:700;color:#00c8ff;background:rgba(0,200,255,.12);border:1px solid rgba(0,200,255,.25);padding:2px 8px;border-radius:8px;white-space:nowrap;animation:scaleInBounce .5s cubic-bezier(.34,1.56,.64,1) .5s both}
 .ranking-bar{height:3px;background:rgba(0,200,255,.1);border-radius:2px;margin-top:5px;overflow:hidden}
 .ranking-bar-fill{height:100%;background:linear-gradient(90deg,#0066ff,#00c8ff);border-radius:2px}
 
-.lideranca-card{background:#111827;border:1px solid #1e2d45;border-radius:12px;padding:14px;margin-bottom:14px}
+.lideranca-card{background:#111827;border:1px solid #1e2d45;border-radius:12px;padding:14px;margin-bottom:14px;animation:fadeInUp .5s .4s ease both}
 .lideranca-title{font-size:13px;font-weight:700;color:#ffffff;margin-bottom:12px}
 .lideranca-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.lideranca-item{background:#0d1528;border-radius:8px;padding:10px 12px;border:1px solid #1e2d45}
+.lideranca-item{background:#0d1528;border-radius:8px;padding:10px 12px;border:1px solid #1e2d45;transition:all .2s}
+.lideranca-item:hover{border-color:#00c8ff;transform:scale(1.03)}
 .lideranca-label{font-size:9px;letter-spacing:1.5px;color:#8a9bb0;text-transform:uppercase;font-weight:700;margin-bottom:5px}
 .lideranca-nome{font-size:14px;font-weight:700;color:#ffffff}
 
-.lembretes{background:#111827;border:1px solid #1e2d45;border-radius:12px;padding:14px;margin-bottom:20px}
+.lembretes{background:#111827;border:1px solid #1e2d45;border-radius:12px;padding:14px;margin-bottom:14px;animation:fadeInUp .5s .3s ease both}
 .lembretes-title{font-size:13px;font-weight:700;color:#ffffff;margin-bottom:10px}
 .lembretes-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
-.lembrete-item{font-size:11px;color:#ffffff;display:flex;align-items:center;gap:6px;padding:7px 8px;background:#0d1528;border-radius:8px;border:1px solid #1e2d45;line-height:1.3;transition:border-color .15s}
-.lembrete-item:hover{border-color:#00c8ff}
-.lembrete-check{color:#00c8ff;font-size:11px;flex-shrink:0}
+.lembrete-item{font-size:11px;color:#ffffff;display:flex;align-items:center;gap:6px;padding:7px 8px;background:#0d1528;border-radius:8px;border:1px solid #1e2d45;line-height:1.3;transition:all .2s cubic-bezier(.34,1.56,.64,1)}
+.lembrete-item:hover{border-color:#00c8ff;background:#111827;transform:scale(1.04)}
+.lembrete-check{color:#00c8ff;font-size:11px;flex-shrink:0;display:inline-block}
+.lembrete-item:hover .lembrete-check{animation:wiggle .3s ease}
 
-.footer{text-align:center;padding:20px 16px;border-top:1px solid #1e2d45}
+.footer{text-align:center;padding:20px 16px;border-top:1px solid #1e2d45;animation:fadeInUp .5s .5s ease both}
 .footer-dev{font-size:12px;color:#8a9bb0}
 .footer-dev span{color:#00c8ff;font-weight:700}
 .footer-copy{font-size:10px;color:#1e2d45;margin-top:4px}
 
+/* ── KEYFRAMES ── */
 @keyframes fadeInUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeInDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
 @keyframes scaleIn{from{opacity:0;transform:scale(.88)}to{opacity:1;transform:scale(1)}}
 @keyframes scaleInBounce{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}
 @keyframes slideInLeft{from{opacity:0;transform:translateX(-24px)}to{opacity:1;transform:translateX(0)}}
-@keyframes slideInRight{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:translateX(0)}}
 @keyframes countUp{from{opacity:0;transform:scale(.5) rotate(-5deg)}to{opacity:1;transform:scale(1) rotate(0deg)}}
 @keyframes float{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-6px) rotate(1deg)}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 @keyframes pulse-ring{0%{box-shadow:0 0 0 0 rgba(0,229,122,.5)}70%{box-shadow:0 0 0 10px rgba(0,229,122,0)}100%{box-shadow:0 0 0 0 rgba(0,229,122,0)}}
-@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
-@keyframes glowPulse{0%,100%{box-shadow:0 0 0 0 rgba(0,200,255,0)}50%{box-shadow:0 0 16px 2px rgba(0,200,255,.18)}}
-@keyframes wiggle{0%,100%{transform:rotate(0deg)}25%{transform:rotate(-3deg)}75%{transform:rotate(3deg)}}
+@keyframes glowPulse{0%,100%{box-shadow:0 0 0 0 rgba(245,158,11,0)}50%{box-shadow:0 0 12px 2px rgba(245,158,11,.3)}}
+@keyframes wiggle{0%,100%{transform:rotate(0deg)}25%{transform:rotate(-8deg)}75%{transform:rotate(8deg)}}
 @keyframes rankIn{from{opacity:0;transform:translateX(-30px) scale(.95)}to{opacity:1;transform:translateX(0) scale(1)}}
 @keyframes popIn{0%{opacity:0;transform:scale(.5) translateY(10px)}70%{transform:scale(1.08) translateY(-2px)}100%{opacity:1;transform:scale(1) translateY(0)}}
 @keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-
-.page-title{animation:fadeInDown .55s cubic-bezier(.34,1.56,.64,1) both}
-.kpi{animation:scaleInBounce .55s cubic-bezier(.34,1.56,.64,1) both}
-.kpi:nth-child(1){animation-delay:.05s}.kpi:nth-child(2){animation-delay:.12s}
-.kpi:nth-child(3){animation-delay:.19s}.kpi:nth-child(4){animation-delay:.26s}
-.kpi-val{animation:countUp .7s cubic-bezier(.34,1.56,.64,1) .35s both}
-.kpi:hover{animation:none;transform:translateY(-4px) scale(1.03);box-shadow:0 8px 24px rgba(0,0,0,.4),0 0 20px rgba(0,200,255,.1);border-color:var(--c)}
-.cal-title{animation:fadeInUp .5s .2s ease both}
-.day{animation:popIn .4s cubic-bezier(.34,1.56,.64,1) both}
-.day:nth-child(odd){animation-delay:.05s}.day:nth-child(even){animation-delay:.1s}
-.day:hover{animation:none;border-color:#00c8ff;background:#0d1528;transform:translateY(-4px) scale(1.03);box-shadow:0 8px 24px rgba(0,200,255,.2)}
-.lembretes{animation:fadeInUp .5s .3s ease both}
-.lembrete-item{transition:all .2s cubic-bezier(.34,1.56,.64,1)}
-.lembrete-item:hover{border-color:#00c8ff;background:#111827;transform:scale(1.04)}
-.lembrete-check{display:inline-block;transition:transform .2s}
-.lembrete-item:hover .lembrete-check{animation:wiggle .3s ease}
-.ranking-card{animation:fadeInUp .5s .35s ease both}
-.ranking-item{animation:rankIn .4s ease both}
-.ranking-item:nth-child(1){animation-delay:.1s}.ranking-item:nth-child(2){animation-delay:.15s}
-.ranking-item:nth-child(3){animation-delay:.2s}.ranking-item:nth-child(4){animation-delay:.25s}
-.ranking-item:nth-child(5){animation-delay:.3s}.ranking-item:nth-child(6){animation-delay:.35s}
-.ranking-item:hover{animation:none;border-color:#00c8ff;background:rgba(0,200,255,.07);transform:translateX(4px)}
-.ranking-pos.gold{animation:glowPulse 2s ease infinite}
-.ranking-count{animation:scaleInBounce .5s cubic-bezier(.34,1.56,.64,1) .5s both}
-.lideranca-card{animation:fadeInUp .5s .4s ease both}
-.lideranca-item{transition:all .2s}
-.lideranca-item:hover{border-color:#00c8ff;transform:scale(1.03)}
-.footer{animation:fadeInUp .5s .5s ease both}
-.logo-img{animation:float 3.5s ease-in-out infinite}
-.live-dot{animation:pulse-ring 2s infinite,pulse 2s infinite}
-.team-member{animation:slideInLeft .35s ease both;transition:all .2s cubic-bezier(.34,1.56,.64,1)}
-.team-member:nth-child(1){animation-delay:.08s}.team-member:nth-child(2){animation-delay:.14s}.team-member:nth-child(3){animation-delay:.2s}
-.team-member:hover{animation:none;border-color:#00c8ff;transform:translateX(5px) scale(1.02);box-shadow:0 4px 16px rgba(0,200,255,.15)}
-.event-block{animation:fadeInUp .35s ease both}
-.event-block:nth-child(1){animation-delay:.05s}.event-block:nth-child(2){animation-delay:.12s}
-.escala-item{animation:slideInLeft .3s ease both;transition:all .2s}
-.escala-item:hover{border-color:#00c8ff;transform:translateX(4px)}
-.profile-item{transition:all .2s cubic-bezier(.34,1.56,.64,1)}
-.profile-item:hover{border-color:#00c8ff;transform:scale(1.03)}
-.resumo-val{animation:countUp .6s cubic-bezier(.34,1.56,.64,1) .2s both}
-.modal-close:hover{border-color:#ff6b8a;color:#ff6b8a;transform:rotate(90deg);transition:all .25s cubic-bezier(.34,1.56,.64,1)}
-.login-btn{background-size:200% 200%;animation:gradientShift 3s ease infinite}
-.badge{animation:scaleIn .5s .6s ease both}
-.breadcrumb{animation:fadeInDown .4s .1s ease both}
 
 @media(max-width:480px){.profile-grid{grid-template-columns:1fr}.lembretes-grid{grid-template-columns:1fr 1fr}.resumo-grid{grid-template-columns:repeat(2,1fr)}}
 </style>
@@ -242,33 +208,32 @@ body{background:#0a0e1a;font-family:system-ui,-apple-system,sans-serif;min-heigh
   <div class="breadcrumb"><span>Mídia Atos</span> › Escala › Maio 2026</div>
   <div class="main">
     <div class="page-title">📅 Escala de Maio 2026</div>
-
     <div class="kpis">
       <div class="kpi" style="--c:#00c8ff">
         <div class="kpi-lbl">👥 Membros</div>
-        <div class="kpi-val">16</div>
+        <div class="kpi-val" id="kpi-membros">—</div>
         <div class="kpi-sub">na equipe</div>
       </div>
       <div class="kpi" style="--c:#00e57a">
         <div class="kpi-lbl">📅 Eventos</div>
-        <div class="kpi-val">18</div>
+        <div class="kpi-val" id="kpi-eventos">—</div>
         <div class="kpi-sub">em maio</div>
       </div>
       <div class="kpi" style="--c:#5b9eff">
         <div class="kpi-lbl">🎬 Escalas</div>
-        <div class="kpi-val">36</div>
+        <div class="kpi-val" id="kpi-escalas">—</div>
         <div class="kpi-sub">serviços</div>
       </div>
       <div class="kpi" style="--c:#ff6b8a">
-        <div class="kpi-lbl">⏱️ Horas de Serviço</div>
-        <div class="kpi-val">54h</div>
-        <div class="kpi-sub">no mês de maio</div>
+        <div class="kpi-lbl">⏱️ Horas</div>
+        <div class="kpi-val" id="kpi-horas">—</div>
+        <div class="kpi-sub">de serviço</div>
       </div>
     </div>
-
     <div class="cal-title">🗓️ Maio 2026</div>
-    <div class="calendar" id="calendar"></div>
-
+    <div id="calendar-wrap">
+      <div class="loading"><div class="loading-spinner"></div>Carregando escala...</div>
+    </div>
     <div class="lembretes">
       <div class="lembretes-title">📋 Lembretes da Equipe</div>
       <div class="lembretes-grid">
@@ -283,23 +248,16 @@ body{background:#0a0e1a;font-family:system-ui,-apple-system,sans-serif;min-heigh
         <div class="lembrete-item"><span class="lembrete-check">✓</span> All Black</div>
       </div>
     </div>
-
-    <div class="ranking-card" id="ranking-card"></div>
-
+    <div class="ranking-card" id="ranking-card">
+      <div class="loading"><div class="loading-spinner"></div>Carregando ranking...</div>
+    </div>
     <div class="lideranca-card">
       <div class="lideranca-title">✝️ Liderança da Equipe</div>
       <div class="lideranca-grid">
-        <div class="lideranca-item">
-          <div class="lideranca-label">👑 Pastora Responsável</div>
-          <div class="lideranca-nome">Prª Amanda Duarte</div>
-        </div>
-        <div class="lideranca-item">
-          <div class="lideranca-label">🎯 Líderes</div>
-          <div class="lideranca-nome">Tom &amp; Evelyn</div>
-        </div>
+        <div class="lideranca-item"><div class="lideranca-label">👑 Pastora Responsável</div><div class="lideranca-nome">Prª Amanda Duarte</div></div>
+        <div class="lideranca-item"><div class="lideranca-label">🎯 Líderes</div><div class="lideranca-nome">Tom &amp; Evelyn</div></div>
       </div>
     </div>
-
     <div class="footer">
       <div class="footer-dev">Desenvolvido por <span>Hewerton Pereira</span></div>
       <div class="footer-copy">Equipe Mídia Atos · 2026</div>
@@ -338,30 +296,13 @@ function checkSenha(){
   if(v==="salamidia2"){
     document.getElementById("login-screen").style.display="none";
     document.getElementById("app").classList.add("show");
+    loadEscala();
   } else {
     document.getElementById("login-error").classList.add("show");
     document.getElementById("senha-input").value="";
     document.getElementById("senha-input").focus();
   }
 }
-
-const ESCALA={
-  "01/05":[{ev:"Culto de Primícias",hora:"19h–22h",turno:"Sexta 19h",equipe:[{n:"Ana Paula",f:"Mesa"},{n:"Sarah",f:"Story/Fotos"},{n:"Luanna",f:"Apoio"}]}],
-  "02/05":[{ev:"One Move / Culto da Juventude",hora:"19h–22h",turno:"Sábado 19h",equipe:[{n:"Rafaela",f:"Mesa"},{n:"Luanna",f:"Story/Fotos"}]},{ev:"Sopão do Amor",hora:"19h–22h",turno:"Sábado 19h",equipe:[{n:"Manuel",f:"Story/Fotos"}]}],
-  "03/05":[{ev:"Café de Integração",hora:"08h–11h",turno:"Domingo 08h",equipe:[{n:"Tom",f:"Mesa"},{n:"Duda",f:"Story/Fotos"}]},{ev:"Culto de Domingo",hora:"17h–20h",turno:"Domingo 17h",equipe:[{n:"Luanna",f:"Mesa"},{n:"Jailson",f:"Story/Fotos"}]}],
-  "08/05":[{ev:"One Move / Culto da Juventude",hora:"19h–22h",turno:"Sexta 19h",equipe:[{n:"Sarah",f:"Mesa"},{n:"Ester",f:"Story/Fotos"}]}],
-  "09/05":[{ev:"Rede de Mulheres",hora:"09h–12h",turno:"Sábado 09h",equipe:[{n:"Ana Paula",f:"Mesa"},{n:"Sarah",f:"Story/Fotos"}]}],
-  "10/05":[{ev:"Culto de Domingo",hora:"17h–20h",turno:"Domingo 17h",equipe:[{n:"Duda",f:"Mesa"},{n:"Evelyn",f:"Story/Fotos"}]}],
-  "15/05":[{ev:"One Move / Culto da Juventude",hora:"19h–22h",turno:"Sexta 19h",equipe:[{n:"Rafaela",f:"Mesa"},{n:"Kemilly",f:"Story/Fotos"}]}],
-  "16/05":[{ev:"Café com Homens",hora:"08h–11h",turno:"Sábado 08h",equipe:[{n:"Gustavo",f:"Mesa"},{n:"Heriton",f:"Story/Fotos"}]},{ev:"Conexão de Homens",hora:"19h–22h",turno:"Sábado 19h",equipe:[{n:"Alisson",f:"Mesa"},{n:"Gustavo",f:"Story/Fotos"}]}],
-  "17/05":[{ev:"Culto de Domingo",hora:"17h–20h",turno:"Domingo 17h",equipe:[{n:"Isabelly",f:"Mesa"},{n:"Ana Paula",f:"Story/Fotos"}]}],
-  "22/05":[{ev:"One Move / Culto da Juventude",hora:"19h–22h",turno:"Sexta 19h",equipe:[{n:"Heriton",f:"Mesa"},{n:"Manuel",f:"Story/Fotos"}]}],
-  "23/05":[{ev:"Café com Mulheres",hora:"08h–11h",turno:"Sábado 08h",equipe:[{n:"Evelyn",f:"Mesa"},{n:"Ester",f:"Story/Fotos"}]}],
-  "24/05":[{ev:"Culto de Domingo",hora:"17h–20h",turno:"Domingo 17h",equipe:[{n:"Duda",f:"Mesa"},{n:"Kemilly",f:"Story/Fotos"}]}],
-  "29/05":[{ev:"Culto de Casais",hora:"19h–22h",turno:"Sexta 19h",equipe:[{n:"Rafaela",f:"Mesa"},{n:"Rebeca",f:"Story/Fotos"}]}],
-  "30/05":[{ev:"Louvorzão",hora:"19h–22h",turno:"Sábado 19h",equipe:[{n:"Alisson",f:"Mesa"},{n:"Luanna",f:"Story/Fotos"}]}],
-  "31/05":[{ev:"Culto de Domingo",hora:"17h–20h",turno:"Domingo 17h",equipe:[{n:"Luanna",f:"Mesa"},{n:"Manuel",f:"Story/Fotos"}]}],
-};
 
 const MEMBROS={
   "Heriton":{nome:"Heriton Fernandes Pereira",email:"heritonfernandes07@gmail.com",sangue:"O+",altura:"1,70 m",camisa:"GG",tel:"(92) 98432-0210",ig:"@heritonffernandes",endereco:"Av. das Garças, N° 403 - Novo Aleixo",nasc:"15/01/2003"},
@@ -385,29 +326,125 @@ const MEMBROS={
 const FOTOS={};
 const AV=["linear-gradient(135deg,#0066ff,#00c8ff)","linear-gradient(135deg,#065f46,#10b981)","linear-gradient(135deg,#1d4ed8,#3b82f6)","linear-gradient(135deg,#9d174d,#ec4899)","linear-gradient(135deg,#92400e,#f59e0b)","linear-gradient(135deg,#1e3a5f,#0ea5e9)","linear-gradient(135deg,#14532d,#4ade80)","linear-gradient(135deg,#7c2d12,#f97316)"];
 const NL=Object.keys(MEMBROS);
-function avC(n){return AV[NL.indexOf(n)%AV.length]}
+function avC(n){return AV[NL.indexOf(n)%AV.length] || AV[0]}
 function ini(n){return n.split(" ").slice(0,2).map(x=>x[0]).join("").toUpperCase()}
 const DAYS_BR=["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"];
 const EV_C=["c1","c2","c3","c4","c5"];
 const EV_ICONS={"Culto":"⛪","One Move":"🔥","Café":"☕","Rede":"🌸","Conexão":"💪","Sopão":"🍲","Louvorzão":"🎶","Casais":"💑","Primícias":"✨","Domingo":"🙏"};
 function evIcon(n){for(const[k,v]of Object.entries(EV_ICONS))if(n.includes(k))return v;return"📅";}
 
+let ESCALA = {};
+
+// Lê CSV do Google Sheets
+async function loadEscala(){
+  try {
+    const SHEET_ID = "1BGTmLcGEXP-m7vmFkttnFBgrP0L0aoVm2hixBu9SPf8";
+    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=0`;
+    const res = await fetch(url);
+    if(!res.ok) throw new Error("erro");
+    const text = await res.text();
+    ESCALA = parseCSV(text);
+    buildCalendar();
+    buildRanking();
+    updateKPIs();
+  } catch(e) {
+    // Fallback com dados fixos se falhar
+    ESCALA = FALLBACK_ESCALA;
+    buildCalendar();
+    buildRanking();
+    updateKPIs();
+  }
+}
+
+function parseCSV(text){
+  const lines = text.split("\n").map(l=>l.trim()).filter(l=>l);
+  const escala = {};
+  let currentDate = "";
+  
+  // Pula cabeçalho (linhas sem data que são título)
+  for(let i=0; i<lines.length; i++){
+    const cols = lines[i].split(",").map(c=>c.replace(/^"|"$/g,"").trim());
+    
+    // Verifica se primeira coluna é uma data DD/MM/YYYY
+    const dateMatch = cols[0].match(/^(\d{2}\/\d{2}\/\d{4})$/);
+    if(dateMatch){
+      currentDate = cols[0].substring(0,5); // pega DD/MM
+    }
+    
+    // Verifica se tem evento e nome (cols: Data, Evento, HoraInicio, HoraFim, Turno, Função, Nome)
+    if(currentDate && cols[1] && cols[6] && cols[5] && !cols[1].includes("Evento")){
+      const key = currentDate;
+      if(!escala[key]) escala[key] = {};
+      const evName = cols[1];
+      if(!escala[key][evName]){
+        escala[key][evName] = {
+          ev: evName,
+          hora: `${cols[2].substring(0,5)}–${cols[3].substring(0,5)}`,
+          turno: cols[4],
+          equipe: []
+        };
+      }
+      if(cols[6] && cols[6] !== "Nome"){
+        escala[key][evName].equipe.push({n: cols[6], f: cols[5]});
+      }
+    }
+  }
+  
+  // Converte para formato do dashboard
+  const result = {};
+  Object.keys(escala).forEach(date => {
+    result[date] = Object.values(escala[date]);
+  });
+  return result;
+}
+
+// Fallback caso o Sheets não carregue
+const FALLBACK_ESCALA = {
+  "01/05":[{ev:"Culto de Primícias",hora:"19h–22h",turno:"Sexta 19h",equipe:[{n:"Ana Paula",f:"Mesa"},{n:"Sarah",f:"Story/Fotos"}]}],
+  "02/05":[{ev:"One Move / Culto da Juventude",hora:"19h–22h",turno:"Sábado 19h",equipe:[{n:"Kemilly",f:"Mesa"},{n:"Luana",f:"Story/Fotos"}]},{ev:"Sopão do Amor",hora:"19h–22h",turno:"Sábado 19h",equipe:[{n:"Manuel",f:"Story/Fotos"}]}],
+  "03/05":[{ev:"Café de Integração",hora:"08h–11h",turno:"Domingo 08h",equipe:[{n:"Tom",f:"Mesa"},{n:"Duda",f:"Story/Fotos"}]},{ev:"Culto de Domingo",hora:"17h–20h",turno:"Domingo 17h",equipe:[{n:"Kemilly",f:"Mesa"},{n:"Jailson",f:"Story/Fotos"}]}],
+  "08/05":[{ev:"One Move / Culto da Juventude",hora:"19h–22h",turno:"Sexta 19h",equipe:[{n:"Sarah",f:"Mesa"},{n:"Ester",f:"Story/Fotos"}]}],
+  "09/05":[{ev:"Rede de Mulheres",hora:"09h–12h",turno:"Sábado 09h",equipe:[{n:"Ana Paula",f:"Mesa"},{n:"Sarah",f:"Story/Fotos"}]}],
+  "10/05":[{ev:"Culto de Domingo",hora:"17h–20h",turno:"Domingo 17h",equipe:[{n:"Duda",f:"Mesa"},{n:"Evelyn",f:"Story/Fotos"}]}],
+  "15/05":[{ev:"One Move / Culto da Juventude",hora:"19h–22h",turno:"Sexta 19h",equipe:[{n:"Rafaela",f:"Mesa"},{n:"Kemilly",f:"Story/Fotos"}]}],
+  "16/05":[{ev:"Café com Homens",hora:"08h–11h",turno:"Sábado 08h",equipe:[{n:"Gustavo",f:"Mesa"},{n:"Heriton",f:"Story/Fotos"}]},{ev:"Conexão de Homens",hora:"19h–22h",turno:"Sábado 19h",equipe:[{n:"Alisson",f:"Mesa"},{n:"Gustavo",f:"Story/Fotos"}]}],
+  "17/05":[{ev:"Culto de Domingo",hora:"17h–20h",turno:"Domingo 17h",equipe:[{n:"Isabelly",f:"Mesa"},{n:"Ana Paula",f:"Story/Fotos"}]}],
+  "22/05":[{ev:"One Move / Culto da Juventude",hora:"19h–22h",turno:"Sexta 19h",equipe:[{n:"Heriton",f:"Mesa"},{n:"Manuel",f:"Story/Fotos"}]}],
+  "23/05":[{ev:"Café com Mulheres",hora:"08h–11h",turno:"Sábado 08h",equipe:[{n:"Evelyn",f:"Mesa"},{n:"Ester",f:"Story/Fotos"}]}],
+  "24/05":[{ev:"Culto de Domingo",hora:"17h–20h",turno:"Domingo 17h",equipe:[{n:"Duda",f:"Mesa"},{n:"Kemilly",f:"Story/Fotos"}]}],
+  "29/05":[{ev:"Culto de Casais",hora:"19h–22h",turno:"Sexta 19h",equipe:[{n:"Rafaela",f:"Mesa"},{n:"Rebeca",f:"Story/Fotos"}]}],
+  "30/05":[{ev:"Louvorzão",hora:"19h–22h",turno:"Sábado 19h",equipe:[{n:"Luanna",f:"Mesa"},{n:"Alisson",f:"Story/Fotos"}]}],
+  "31/05":[{ev:"Culto de Domingo",hora:"17h–20h",turno:"Domingo 17h",equipe:[{n:"Luanna",f:"Mesa"},{n:"Manuel",f:"Story/Fotos"}]}],
+};
+
+function updateKPIs(){
+  const totalEvs = Object.values(ESCALA).reduce((a,v)=>a+v.length,0);
+  const totalEsc = Object.values(ESCALA).reduce((a,v)=>a+v.reduce((b,e)=>b+e.equipe.length,0),0);
+  document.getElementById("kpi-membros").textContent = Object.keys(MEMBROS).length;
+  document.getElementById("kpi-eventos").textContent = totalEvs;
+  document.getElementById("kpi-escalas").textContent = totalEsc;
+  document.getElementById("kpi-horas").textContent = (totalEvs*3)+"h";
+}
+
 function buildCalendar(){
-  const cal=document.getElementById("calendar");
-  cal.innerHTML="";
-  const days=Object.keys(ESCALA).map(k=>parseInt(k)).sort((a,b)=>a-b);
+  const wrap = document.getElementById("calendar-wrap");
+  const cal = document.createElement("div");
+  cal.className = "calendar";
+  const days = Object.keys(ESCALA).map(k=>parseInt(k)).sort((a,b)=>a-b);
   days.forEach(day=>{
-    const key=String(day).padStart(2,"0")+"/05";
-    const evs=ESCALA[key]||[];
-    const dow=(5+day-1)%7;
-    const d=document.createElement("div");
-    d.className="day";
-    let inner=`<div class="day-num"><span>${day}</span><span class="dow">${DAYS_BR[dow]}</span></div>`;
+    const key = String(day).padStart(2,"0")+"/05";
+    const evs = ESCALA[key]||[];
+    const dow = (5+day-1)%7;
+    const d = document.createElement("div");
+    d.className = "day";
+    let inner = `<div class="day-num"><span>${day}</span><span class="dow">${DAYS_BR[dow]}</span></div>`;
     evs.forEach((e,i)=>{inner+=`<div class="event-mini ${EV_C[i%5]}">${evIcon(e.ev)} ${e.ev}</div>`;});
-    d.innerHTML=inner;
-    d.onclick=()=>openModal(day,evs);
+    d.innerHTML = inner;
+    d.onclick = ()=>openModal(day,evs);
     cal.appendChild(d);
   });
+  wrap.innerHTML = "";
+  wrap.appendChild(cal);
 }
 
 function buildRanking(){
@@ -459,7 +496,6 @@ function openModal(day,evs){
   document.getElementById("modal-bg").classList.add("open");
   document.body.style.overflow="hidden";
 }
-
 function closeModal(){document.getElementById("modal-bg").classList.remove("open");document.body.style.overflow="";}
 
 function openProfile(name){
@@ -497,16 +533,12 @@ function openProfile(name){
     </div></div>`;
   }
   const escalaHTML=escalaDates.length?`<div class="profile-escala-title" style="margin-top:14px">📅 Eventos em Maio</div>`+escalaDates.map((e,i)=>`<div class="escala-item" style="animation-delay:${i*.06}s"><span>${e.date} · ${e.ev}</span><span class="func-badge ${fc_map[e.func]||""}">${e.func}</span></div>`).join(""):"";
-  document.getElementById("p-body").innerHTML=`<button class="back-btn" onclick="closeProfile()">← Voltar para a escala</button><div class="profile-grid">${gridHTML}</div>${resumoHTML}${escalaHTML}`;
+  document.getElementById("p-body").innerHTML=`<button class="back-btn" onclick="closeProfile()">← Voltar</button><div class="profile-grid">${gridHTML}</div>${resumoHTML}${escalaHTML}`;
   document.getElementById("profile-bg").classList.add("open");
   document.body.style.overflow="hidden";
 }
-
 function closeProfile(){document.getElementById("profile-bg").classList.remove("open");document.body.style.overflow="";}
 window.closeModal=closeModal;window.openProfile=openProfile;window.closeProfile=closeProfile;
-
-buildCalendar();
-buildRanking();
 </script>
 </body>
 </html>
