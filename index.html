@@ -159,6 +159,11 @@ body{background:#0a0e1a;font-family:system-ui,-apple-system,sans-serif;min-heigh
 .lembrete-check{color:#00c8ff;font-size:11px;flex-shrink:0;display:inline-block}
 .lembrete-item:hover .lembrete-check{animation:wiggle .3s ease}
 
+.reload-btn{background:#111827;border:1px solid #1e2d45;color:#00c8ff;font-size:11px;padding:7px 14px;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:700;letter-spacing:.5px;transition:all .2s;animation:scaleIn .4s .3s ease both}
+.reload-btn:hover{border-color:#00c8ff;background:rgba(0,200,255,.1);transform:scale(1.05)}
+.reload-btn.loading{opacity:.6;pointer-events:none}
+.reload-btn.loading{animation:spin .8s linear infinite}
+.last-update{font-size:10px;color:#3a4a62;margin-bottom:16px;text-align:right}
 .footer{text-align:center;padding:20px 16px;border-top:1px solid #1e2d45;animation:fadeInUp .5s .5s ease both}
 .footer-dev{font-size:12px;color:#8a9bb0}
 .footer-dev span{color:#00c8ff;font-weight:700}
@@ -207,7 +212,11 @@ body{background:#0a0e1a;font-family:system-ui,-apple-system,sans-serif;min-heigh
   </div>
   <div class="breadcrumb"><span>Mídia Atos</span> › Escala › Maio 2026</div>
   <div class="main">
-    <div class="page-title">📅 Escala de Maio 2026</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:8px">
+      <div class="page-title" style="margin-bottom:0">📅 Escala de Maio 2026</div>
+      <button class="reload-btn" onclick="reloadEscala()" id="reload-btn">🔄 Atualizar</button>
+    </div>
+    <div class="last-update" id="last-update"></div>
     <div class="kpis">
       <div class="kpi" style="--c:#00c8ff">
         <div class="kpi-lbl">👥 Membros</div>
@@ -336,63 +345,105 @@ function evIcon(n){for(const[k,v]of Object.entries(EV_ICONS))if(n.includes(k))re
 let ESCALA = {};
 
 // Lê CSV do Google Sheets
-async function loadEscala(){
+async function loadEscala(showLoading=true){
+  const btn = document.getElementById("reload-btn");
+  const upd = document.getElementById("last-update");
+  if(btn){ btn.textContent="⏳ Carregando..."; btn.classList.add("loading"); }
+  if(showLoading){
+    document.getElementById("calendar-wrap").innerHTML = '<div class="loading"><div class="loading-spinner"></div>Carregando escala da planilha...</div>';
+    document.getElementById("ranking-card").innerHTML = '<div class="loading"><div class="loading-spinner"></div>Carregando ranking...</div>';
+  }
   try {
     const SHEET_ID = "1BGTmLcGEXP-m7vmFkttnFBgrP0L0aoVm2hixBu9SPf8";
-    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=0`;
-    const res = await fetch(url);
+    // cache-busting para evitar dados antigos
+    const ts = Date.now();
+    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=0&t=${ts}`;
+    const res = await fetch(url, {cache:"no-store"});
     if(!res.ok) throw new Error("erro");
     const text = await res.text();
-    ESCALA = parseCSV(text);
-    buildCalendar();
-    buildRanking();
-    updateKPIs();
+    const parsed = parseCSV(text);
+    if(Object.keys(parsed).length > 0){
+      ESCALA = parsed;
+      if(upd){ const now=new Date(); upd.textContent=`Atualizado às ${now.getHours().toString().padStart(2,"0")}:${now.getMinutes().toString().padStart(2,"0")} · Fonte: Google Sheets`; }
+    } else {
+      throw new Error("vazio");
+    }
   } catch(e) {
-    // Fallback com dados fixos se falhar
     ESCALA = FALLBACK_ESCALA;
-    buildCalendar();
-    buildRanking();
-    updateKPIs();
+    if(upd){ upd.textContent="⚠️ Usando dados locais (verifique a planilha)"; }
   }
+  buildCalendar();
+  buildRanking();
+  updateKPIs();
+  if(btn){ btn.textContent="🔄 Atualizar"; btn.classList.remove("loading"); }
 }
 
+function reloadEscala(){ loadEscala(true); }
+window.reloadEscala = reloadEscala;
+
 function parseCSV(text){
-  const lines = text.split("\n").map(l=>l.trim()).filter(l=>l);
+  // Divide em linhas e processa cada campo respeitando aspas
+  function splitLine(line){
+    const result = [];
+    let current = "";
+    let inQuotes = false;
+    for(let i=0; i<line.length; i++){
+      const ch = line[i];
+      if(ch==='"'){ inQuotes=!inQuotes; continue; }
+      if(ch==="," && !inQuotes){ result.push(current.trim()); current=""; continue; }
+      current += ch;
+    }
+    result.push(current.trim());
+    return result;
+  }
+
+  const lines = text.split("\n");
   const escala = {};
   let currentDate = "";
-  
-  // Pula cabeçalho (linhas sem data que são título)
+
   for(let i=0; i<lines.length; i++){
-    const cols = lines[i].split(",").map(c=>c.replace(/^"|"$/g,"").trim());
-    
-    // Verifica se primeira coluna é uma data DD/MM/YYYY
-    const dateMatch = cols[0].match(/^(\d{2}\/\d{2}\/\d{4})$/);
+    const raw = lines[i];
+    if(!raw.trim()) continue;
+    const cols = splitLine(raw);
+
+    // Detecta data no formato DD/MM/YYYY ou D/M/YYYY
+    const dateMatch = cols[0] && cols[0].match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
     if(dateMatch){
-      currentDate = cols[0].substring(0,5); // pega DD/MM
+      const d = dateMatch[1].padStart(2,"0");
+      const m = dateMatch[2].padStart(2,"0");
+      currentDate = `${d}/${m}`;
     }
-    
-    // Verifica se tem evento e nome (cols: Data, Evento, HoraInicio, HoraFim, Turno, Função, Nome)
-    if(currentDate && cols[1] && cols[6] && cols[5] && !cols[1].includes("Evento")){
-      const key = currentDate;
-      if(!escala[key]) escala[key] = {};
-      const evName = cols[1];
-      if(!escala[key][evName]){
-        escala[key][evName] = {
-          ev: evName,
-          hora: `${cols[2].substring(0,5)}–${cols[3].substring(0,5)}`,
-          turno: cols[4],
-          equipe: []
-        };
-      }
-      if(cols[6] && cols[6] !== "Nome"){
-        escala[key][evName].equipe.push({n: cols[6], f: cols[5]});
-      }
+
+    // Precisa ter data, evento (col1) e nome (col6) e função (col5)
+    // Ignora cabeçalho e linhas sem dados suficientes
+    const evName = cols[1] ? cols[1].trim() : "";
+    const func   = cols[5] ? cols[5].trim() : "";
+    const nome   = cols[6] ? cols[6].trim() : "";
+    const hora1  = cols[2] ? cols[2].trim() : "";
+    const hora2  = cols[3] ? cols[3].trim() : "";
+    const turno  = cols[4] ? cols[4].trim() : "";
+
+    if(!currentDate) continue;
+    if(!evName || evName==="Evento" || evName==="ESCALA MÍDIA") continue;
+    if(!nome   || nome==="Nome"    || nome==="Email") continue;
+    if(!func   || func==="Função") continue;
+
+    if(!escala[currentDate]) escala[currentDate] = {};
+    if(!escala[currentDate][evName]){
+      // Formata hora HH:MM → HHh
+      const fmtH = h => h ? h.substring(0,5).replace(":","h") : "";
+      escala[currentDate][evName] = {
+        ev: evName,
+        hora: `${fmtH(hora1)}–${fmtH(hora2)}`,
+        turno: turno,
+        equipe: []
+      };
     }
+    escala[currentDate][evName].equipe.push({n: nome, f: func});
   }
-  
-  // Converte para formato do dashboard
+
   const result = {};
-  Object.keys(escala).forEach(date => {
+  Object.keys(escala).sort().forEach(date => {
     result[date] = Object.values(escala[date]);
   });
   return result;
